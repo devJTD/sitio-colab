@@ -13,12 +13,17 @@ jobs:
       - name: Obtener código 
         uses: actions/checkout@v4 
  
-      - name: Validar HTML 
-        uses: Cyb3r-Jak3/htmlhint-action@v1.3.0 
-        with: 
+      - name: 🔎 Validar HTML (Usando HTML-Linter)
+        # Reemplaza la acción que da error con esta alternativa popular
+        uses: chialab/html-linter-action@v1.0.1
+        with:
+          # Busca todos los archivos HTML. Ajusta si tienes una configuración específica.
           files: "**/*.html" 
  
-      - name: Validar CSS 
-        uses: cssstats/cssstats-action@v1 
-        with: 
+      - name: 🔎 Validar CSS (Usando Stylelint)
+        # Reemplaza la acción de cssstats con una acción de Linter de CSS real (Stylelint)
+        uses: gurugubesch/stylelint-action@v1
+        with:
+          # Busca archivos CSS dentro del directorio 'css'.
+          # Si tienes tu CSS en otro lugar, cámbialo a files: "**/*.css"
           files: "css/**/*.css"

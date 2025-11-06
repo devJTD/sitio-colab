@@ -1,0 +1,34 @@
+name: Validación HTML y CSS 
+ 
+on: 
+  push: 
+    branches: [ main, feature/* ] 
+  pull_request: 
+    branches: [ main ] 
+ 
+jobs: 
+  validate: 
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: Obtener código 
+        uses: actions/checkout@v4 
+ 
+      - name: 🛠️ Configurar Node.js (Ambiente necesario)
+        # Instalamos Node.js para poder usar 'npm' y ejecutar los linters.
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+ 
+      - name: 📦 Instalar Herramientas (HTMLHint y Stylelint)
+        # Instalamos globalmente las herramientas de línea de comandos (CLI)
+        run: npm install -g htmlhint stylelint stylelint-config-standard
+ 
+      - name: 🔎 Validar HTML (Ejecución Directa de HTMLHint)
+        # Busca cualquier archivo .html en el repositorio
+        run: htmlhint "**/*.html"
+ 
+      - name: 🔎 Validar CSS (Ejecución Directa de Stylelint)
+        # Busca archivos .css dentro de la carpeta 'css'.
+        # ⚠️ ¡Asegúrate de que este path es correcto para tu proyecto!
+        run: stylelint "css/**/*.css" --config .stylelintrc.json
+        # NOTA: Necesitas un archivo .stylelintrc.json en la raíz.
